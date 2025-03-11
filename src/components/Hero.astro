@@ -1,0 +1,75 @@
+---
+const heroImages = ['/public/hero1.jpg', '/public/hero2.jpg', '/public/hero3.jpg'];
+---
+
+<section id="inicio" class="relative h-screen w-full overflow-hidden">
+  <!-- Background Carousel -->
+  <div class="absolute inset-0 z-0">
+    <div class="relative w-full h-full" id="heroCarousel">
+      <img
+        src={heroImages[0]}
+        alt="Community Group"
+        class="w-full h-full object-cover absolute transition-opacity duration-1000" />
+      {heroImages.slice(1).map((image, index) => (
+        <img src={image} alt={`Community Group ${index + 2}`} class="w-full h-full object-cover absolute transition-opacity duration-1000 opacity-0" />
+      ))}
+    </div>
+
+    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+    <div class="mt-20 md:mt-0" data-aos="fade-up" data-aos-delay="200">
+      <img
+        src="/LOGO.png"
+        alt="Instituto Bahá'í Logo"
+        width="120"
+        height="120"
+        class="mx-auto mb-6"
+      />
+      <h1 class="text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
+        INSTITUTO BAHÁ'Í
+      </h1>
+      <p class="text-white text-lg md:text-xl mb-2">
+        CAPACITACIÓN Y DESARROLLO COMUNITARIO
+      </p>
+      <h2 class="text-white text-2xl md:text-3xl font-semibold mb-8">
+        ISLAS CANARIAS
+      </h2>
+    </div>
+
+    <div class="mt-8" data-aos="fade-up" data-aos-delay="400">
+      <div class="text-center">
+        <h2 class="text-4xl md:text-5xl font-bold">
+          <span class="text-green-500">CONSTRUYENDO</span>
+          <br />
+          <span class="text-yellow-500">COMUNIDAD</span>
+          <br />
+          <span class="text-blue-400 font-script text-3xl md:text-4xl">en familia</span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="mt-12" data-aos="fade-up" data-aos-delay="600">
+      <button class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105">
+        Conoce Nuestros Programas
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const images = document.querySelectorAll('#heroCarousel img');
+    let currentIndex = 0;
+
+    function showNextImage() {
+      images[currentIndex].classList.add('opacity-0');
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.remove('opacity-0');
+    }
+
+    setInterval(showNextImage, 5000); // Change image every 5 seconds
+  });
+</script>

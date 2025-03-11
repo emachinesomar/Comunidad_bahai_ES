@@ -1,0 +1,94 @@
+---
+const programs = [
+  {
+    title: "Clases de Niños",
+    description: "Desarrollo de cualidades espirituales y valores morales en niños de 5 a 11 años.",
+    image: "/ninos.jpg?height=300&width=400",
+    features: [
+      "Actividades lúdicas y artísticas",
+      "Desarrollo de virtudes y valores",
+      "Servicio a la comunidad",
+      "Fortalecimiento de la identidad positiva",
+    ],
+  },
+  {
+    title: "Grupos Prejuveniles",
+    description: "Empoderamiento de prejóvenes de 12 a 14 años para ser agentes de cambio positivo.",
+    image: "/prejovenes.jpg?height=300&width=400",
+    features: [
+      "Desarrollo de capacidades de servicio",
+      "Fortalecimiento del carácter",
+      "Análisis crítico de la sociedad",
+      "Proyectos de servicio comunitario",
+    ],
+  },
+  {
+    title: "Círculos de Estudio",
+    description: "Espacios de aprendizaje colaborativo para jóvenes y adultos.",
+    image: "/jovenes.jpg?height=300&width=400",
+    features: [
+      "Estudio de conceptos sobre desarrollo comunitario",
+      "Adquisición de habilidades prácticas",
+      "Aplicación en proyectos comunitarios",
+      "Acompañamiento a iniciativas locales",
+    ],
+  },
+];
+---
+
+<section id="programas" class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        Nuestros Programas
+      </h2>
+      <div class="w-24 h-1 bg-blue-500 mx-auto mb-6"></div>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Ofrecemos diversos programas educativos para todas las edades, 
+        orientados al desarrollo de capacidades para el servicio a la comunidad.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {programs.map((program, index) => (
+        <div
+          class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+          data-aos="fade-up"
+          data-aos-delay={200 + index * 100}
+        >
+          <div class="h-48 overflow-hidden">
+            <img
+              src={program.image || "/scaled.jpeg?height=300&width=400"}
+              alt={program.title}
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">{program.title}</h3>
+            <p class="text-gray-600 mb-4">{program.description}</p>
+            <ul class="space-y-2 mb-6">
+              {program.features.map((feature) => (
+                <li class="flex items-start">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span class="text-gray-700">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-full transition-colors duration-300">
+              Más Información
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-16" data-aos="fade-up">
+      <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105">
+        Ver Todos los Programas
+      </button>
+    </div>
+  </div>
+</section>
+
