@@ -10,20 +10,25 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
   scroll-behavior: smooth;
 }
 
-/* Fuente personalizada para el texto "en familia" */
-/* @font-face {
-  font-family: "Script";
-  src: url("/fonts/script.woff2") format("woff2");
+@font-face {
+  font-family: 'Plumpfull';
+  src: url('/fonts/Plumpfull.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
-} */
+  font-display: swap;
+}
 
 .font-script {
-  font-family: "Script", cursive;
+  font-family: 'Script', cursive;
 }
 
 /* Animaciones adicionales */
@@ -50,4 +55,3 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
-

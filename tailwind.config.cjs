@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}", "*.{js,ts,jsx,tsx,mdx}"],
+  content: [
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    '*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -26,7 +29,7 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        script: ['Script', 'cursive'],
+        plumpfull: ['Plumpfull', 'sans-serif'],
       },
       animation: {
         float: 'float 3s ease-in-out infinite',
@@ -40,5 +43,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
-
+};

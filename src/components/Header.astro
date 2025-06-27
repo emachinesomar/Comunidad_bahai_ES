@@ -4,7 +4,7 @@
 
 <header
   id="header-nav"
-  class="fixed w-full py-4 transition-all duration-500 ease-in-out bg-white/90 backdrop-blur-sm z-50"
+  class="fixed w-full py-4 transition-all duration-500 ease-in-out bg-white backdrop-blur-sm z-50 md:opacity-0 md:-translate-y-10 md:pointer-events-none"
 >
   <div class="container mx-auto px-4 flex justify-between items-center">
     <div class="flex items-center">
@@ -18,7 +18,9 @@
         />
       </a>
       <div class="ml-4 hidden md:block">
-        <h1 class="text-xl font-bold text-gray-800 transition-all duration-300">
+        <h1
+          class="font-plumpfull text-xl font-bold text-gray-800 transition-all duration-300"
+        >
           INSTITUTO BAHÁ'Í
         </h1>
         <p class="text-sm text-gray-600 transition-all duration-300">
@@ -143,57 +145,74 @@
 </header>
 
 <script>
-  // Cambiar estilo del header al hacer scroll con transición suave
   const header = document.getElementById('header-nav');
+  const isDesktop = () => window.innerWidth >= 768;
 
-  const handleScroll = () => {
+  const updateHeaderVisibility = () => {
     const scrollY = window.scrollY;
 
+    if (!isDesktop()) return; // En móviles no hacemos nada
+
     if (scrollY > 50) {
-      // Cuando se hace scroll hacia abajo - navbar más compacto
-      header.classList.remove('py-4', 'bg-white/90');
-      header.classList.add('py-2', 'bg-white', 'shadow-lg');
-
-      // Opcional: hacer el texto más pequeño en scroll
-      const title = header.querySelector('h1');
-      const subtitle = header.querySelector('p:first-of-type');
-      const location = header.querySelector('p:last-of-type');
-
-      if (title) title.classList.add('text-lg');
-      if (subtitle) subtitle.classList.add('text-xs');
-      if (location) location.classList.add('text-base');
+      header.classList.remove(
+        'md:opacity-0',
+        'md:-translate-y-10',
+        'md:pointer-events-none'
+      );
+      header.classList.add('md:opacity-100', 'md:translate-y-0');
     } else {
-      // Cuando está en la parte superior - navbar normal
-      header.classList.remove('py-2', 'bg-white', 'shadow-lg');
-      header.classList.add('py-4', 'bg-white/90');
+      header.classList.remove('md:opacity-100', 'md:translate-y-0');
+      header.classList.add(
+        'md:opacity-0',
+        'md:-translate-y-10',
+        'md:pointer-events-none'
+      );
+    }
 
-      // Restaurar tamaño original del texto
+    // Ajustes de tamaño y sombra (solo en escritorio)
+    if (scrollY > 50) {
+      header.classList.remove('py-4');
+      header.classList.add('py-2', 'shadow-lg');
+    } else {
+      header.classList.remove('py-2', 'shadow-lg');
+      header.classList.add('py-4');
+    }
+
+    // Texto reducido solo en escritorio
+    if (isDesktop()) {
       const title = header.querySelector('h1');
       const subtitle = header.querySelector('p:first-of-type');
       const location = header.querySelector('p:last-of-type');
 
-      if (title) title.classList.remove('text-lg');
-      if (subtitle) subtitle.classList.remove('text-xs');
-      if (location) location.classList.remove('text-base');
+      if (scrollY > 50) {
+        if (title) title.classList.add('text-lg');
+        if (subtitle) subtitle.classList.add('text-xs');
+        if (location) location.classList.add('text-base');
+      } else {
+        if (title) title.classList.remove('text-lg');
+        if (subtitle) subtitle.classList.remove('text-xs');
+        if (location) location.classList.remove('text-base');
+      }
     }
   };
 
-  // Optimización con requestAnimationFrame para mejor rendimiento
   let ticking = false;
-  const scrollHandler = () => {
+  window.addEventListener('scroll', () => {
     if (!ticking) {
       requestAnimationFrame(() => {
-        handleScroll();
+        updateHeaderVisibility();
         ticking = false;
       });
       ticking = true;
     }
-  };
+  });
 
-  // Agregar el evento de scroll
-  window.addEventListener('scroll', scrollHandler);
+  window.addEventListener('resize', () => {
+    // Reiniciar clases si cambia el tamaño de ventana entre móvil/escritorio
+    updateHeaderVisibility();
+  });
 
-  // Menú móvil con transiciones mejoradas
+  // Menú móvil
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.querySelector('.menu-icon');
@@ -201,9 +220,7 @@
 
   mobileMenuButton.addEventListener('click', () => {
     const isHidden = mobileMenu.classList.contains('opacity-0');
-
     if (isHidden) {
-      // Mostrar menú con transición suave
       mobileMenu.classList.remove(
         'opacity-0',
         'invisible',
@@ -213,7 +230,6 @@
       menuIcon.classList.add('hidden');
       closeIcon.classList.remove('hidden');
     } else {
-      // Ocultar menú con transición suave
       mobileMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
       mobileMenu.classList.add('opacity-0', 'invisible', 'translate-y-[-10px]');
       menuIcon.classList.remove('hidden');
@@ -221,7 +237,6 @@
     }
   });
 
-  // Cerrar menú móvil al hacer clic en un enlace
   const mobileLinks = mobileMenu.querySelectorAll('a');
   mobileLinks.forEach((link) => {
     link.addEventListener('click', () => {
