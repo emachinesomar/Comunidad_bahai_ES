@@ -1,0 +1,725 @@
+---
+import FormField from './FormField.astro';
+import SignatureCanvas from './SignatureCanvas.astro';
+import Footer from '../../components/Footer.astro';
+const totalSteps = 18; // Total number of steps in the form
+---
+<div class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 min-h-screen ">
+
+<section class="py-12 w-full">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-100 mb-8">Clases de Niños Baháʼí</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-semibold text-gray-700 mb-4">¿Qué son las Clases de Niños Baháʼí?</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Las Clases de Niños Baháʼí son espacios educativos donde los niños aprenden sobre principios espirituales y morales universales, como la unidad, la justicia, la veracidad y el servicio a la humanidad. Se basan en las enseñanzas de la Fe Baháʼí, pero están abiertas a niños de todas las creencias y orígenes.
+          </p>
+          <p class="text-gray-600 leading-relaxed mt-4">
+            El objetivo principal es nutrir el desarrollo espiritual de los niños, ayudándolos a cultivar cualidades nobles y a comprender su papel como constructores de un mundo mejor. Las clases son interactivas, divertidas y fomentan la participación activa de los pequeños.
+          </p>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-semibold text-gray-700 mb-4">¿Qué aprenden los niños?</h3>
+          <ul class="list-disc list-inside text-gray-600 leading-relaxed">
+            <li>La importancia de la oración y la meditación.</li>
+            <li>Historias inspiradoras de profetas y figuras espirituales.</li>
+            <li>Principios como la unidad de la humanidad, la igualdad de hombres y mujeres, y la armonía entre ciencia y religión.</li>
+            <li>Cómo desarrollar virtudes como la bondad, la generosidad, la paciencia y la honestidad.</li>
+            <li>La importancia del servicio a la comunidad y la construcción de un mundo pacífico.</li>
+            <li>Habilidades para la toma de decisiones morales y la resolución de conflictos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 w-full">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-100 mb-8">Formulario de Inscripción</h2>
+      <div class="flex flex-col items-center justify-center p-4 w-full">
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <h1 class="text-3xl font-bold text-white mb-2">Formulario de Permisos</h1>
+          <p class="text-slate-300">Campus Educativo - Autorización de Padres/Tutores</p>
+        </div>
+
+        <!-- Progress Indicator -->
+          <div class="flex justify-center items-center space-x-3 mb-8">
+        {Array.from({ length: totalSteps }).map((_, i) => (
+        <div class={`progress-dot w-3 h-3 rounded-full`} data-step-indicator={i + 1}></div>
+        ))}
+      </div>
+
+        <div class="text-center text-slate-300 text-sm font-medium mb-6">
+          1 de 20
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-2xl border border-slate-700 p-8 w-full max-w-5xl mx-auto">
+          <form id="campusForm">
+            <!-- Step 1: Información del Estudiante -->
+            <div class="step-content" data-step="1">
+              <div class="text-center mb-6">
+                <h2 class="text-xl font-semibold text-white mb-2">Información del Estudiante</h2>
+                <p class="text-slate-400 text-sm">Datos básicos del estudiante</p>
+              </div>
+              <div class="space-y-6">
+                <FormField label="Nombre completo del estudiante" name="student_name" type="text" required={true}
+                  placeholder="Ingrese el nombre completo" />
+              </div>
+            </div>
+              <!-- Step 2: Edad del Estudiante -->
+          <div class="step-content hidden" data-step="2">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Edad del Estudiante</h2>
+              <p class="text-slate-400 text-sm">Información de edad</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Fecha de nacimiento" name="student_birthdate" type="date" required={true} />
+            </div>
+          </div>
+
+          <!-- Step 3: Grado Escolar -->
+          <div class="step-content hidden" data-step="3">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Grado Escolar</h2>
+              <p class="text-slate-400 text-sm">Nivel académico actual</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Grado o nivel escolar" name="student_grade" type="select" required={true}
+                options={['1° Primaria' , '2° Primaria' , '3° Primaria' , '4° Primaria' , '5° Primaria', '6° Primaria' ,
+                '1° Secundaria' , '2° Secundaria' , '3° Secundaria' , '1° Bachillerto', '2° Bachillerto' ]} />
+            </div>
+          </div>
+
+          <!-- Step 4: Información del Padre/Tutor -->
+          <!-- <div class="step-content hidden" data-step="4">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Información del Padre/Tutor</h2>
+              <p class="text-slate-400 text-sm">Datos del responsable</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Nombre completo del padre/tutor" name="parent_name" type="text" required={true}
+                placeholder="Ingrese su nombre completo" />
+            </div>
+          </div> -->
+
+          <!-- Step 5: Relación con el Estudiante -->
+          <!-- <div class="step-content hidden" data-step="5">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Relación con el Estudiante</h2>
+              <p class="text-slate-400 text-sm">Parentesco o tutela</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Relación" name="relationship" type="select" required={true} options={['Padre', 'Madre'
+                , 'Tutor Legal' , 'Abuelo/a' , 'Tío/a' , 'Hermano/a Mayor' , 'Otro Familiar' ]} />
+            </div>
+          </div> -->
+
+          <!-- Step 6: Teléfono de Contacto -->
+          <div class="step-content hidden" data-step="4">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Teléfono de Contacto</h2>
+              <p class="text-slate-400 text-sm">Número principal de contacto</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Teléfono" name="parent_phone" type="tel" required={true}
+                placeholder="Ej: 555-123-4567" />
+            </div>
+          </div>
+
+          <!-- Step 7: Email -->
+          <div class="step-content hidden" data-step="5">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Correo Electrónico</h2>
+              <p class="text-slate-400 text-sm">Email de contacto</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Correo electrónico" name="parent_email" type="email" required={true}
+                placeholder="ejemplo@correo.com" />
+            </div>
+          </div>
+
+          <!-- Step 8: Dirección -->
+          <div class="step-content hidden" data-step="6">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Dirección</h2>
+              <p class="text-slate-400 text-sm">Dirección de residencia</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Dirección completa" name="address" type="text" required={true}
+                placeholder="Calle, portal y número" />
+            </div>
+          </div>
+
+          <!-- Step 9: Permisos de Salidas -->
+          <div class="step-content hidden" data-step="7">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Permisos de Salidas</h2>
+              <p class="text-slate-400 text-sm">Autorización para excursiones y actividades extracurriculares</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="¿Autoriza salidas educativas?" name="field_trips" type="select" required={true}
+                options={['Sí, autorizo todas las salidas', 'Sí, pero requiero notificación previa'
+                , 'No autorizo salidas' ]} />
+            </div>
+          </div>
+
+          <!-- Step 10: Actividades Deportivas -->
+          <div class="step-content hidden" data-step="8">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Actividades Deportivas</h2>
+              <p class="text-slate-400 text-sm">Participación en deportes y educación física</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="¿Autoriza participación en deportes?" name="sports" type="select" required={true}
+                options={['Sí, todas las actividades deportivas', 'Sí, solo deportes de bajo impacto'
+                , 'No autorizo actividades deportivas' ]} />
+            </div>
+          </div>
+
+          <!-- Step 11: Uso de Imagen -->
+          <div class="step-content hidden" data-step="9">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Uso de Imagen</h2>
+              <p class="text-slate-400 text-sm">Autorización para fotografías y videos institucionales</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="¿Autoriza el uso de imagen del estudiante?" name="image_use" type="select"
+                required={true} options={['Sí, para uso educativo e institucional', 'Sí, solo para uso interno'
+                , 'No autorizo el uso de imagen' ]} />
+            </div>
+          </div>
+
+          <!-- Step 12: Medicamentos -->
+          <div class="step-content hidden" data-step="10">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Administración de Medicamentos</h2>
+              <p class="text-slate-400 text-sm">Autorización para administrar medicamentos básicos</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="¿Autoriza administración de medicamentos básicos?" name="medication" type="select"
+                required={true} options={['Sí, medicamentos básicos (paracetamol, etc.)', 'Solo con autorización específica' , 'No autorizo medicamentos' ]} />
+            </div>
+          </div>
+
+          <!-- Step 13: Alergias -->
+          <div class="step-content hidden" data-step="11">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Alergias y Condiciones Médicas</h2>
+              <p class="text-slate-400 text-sm">Información médica importante</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="¿El estudiante tiene alergias o condiciones médicas?" name="allergies" type="text"
+                required={false} placeholder="Describa alergias, medicamentos que toma, etc. (Opcional)" />
+            </div>
+          </div>
+
+          <!-- Step 14: Contacto de Emergencia -->
+          <div class="step-content hidden" data-step="12">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Contacto de Emergencia</h2>
+              <p class="text-slate-400 text-sm">Persona alternativa de contacto</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Nombre del contacto de emergencia" name="emergency_contact" type="text" required={true}
+                placeholder="Nombre de persona alternativa" />
+            </div>
+          </div>
+
+          <!-- Step 15: Teléfono de Emergencia -->
+          <div class="step-content hidden" data-step="13">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Teléfono de Emergencia</h2>
+              <p class="text-slate-400 text-sm">Número del contacto alternativo</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="Teléfono de emergencia" name="emergency_phone" type="tel" required={true}
+                placeholder="Número de contacto alternativo" />
+            </div>
+          </div>
+
+          <!-- Step 16: Transporte -->
+          <div class="step-content hidden" data-step="14">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Transporte</h2>
+              <p class="text-slate-400 text-sm">Método de transporte del estudiante</p>
+            </div>
+
+            <div class="space-y-6">
+              <FormField label="¿Cómo se transporta el estudiante?" name="transportation" type="select" required={true}
+                options={['Los padres lo recogen', 'Transporte escolar' , 'Camina solo' , 'Transporte público'
+                , 'Otro familiar lo recoge' ]} />
+            </div>
+          </div>
+
+          <!-- Step 17: Firma Digital -->
+          <div class="step-content hidden" data-step="15">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Firma Digital</h2>
+              <p class="text-slate-400 text-sm">Firme para validar las autorizaciones</p>
+            </div>
+
+            <div class="space-y-6">
+              <SignatureCanvas />
+            </div>
+          </div>
+
+          <!-- Step 18: Términos y Condiciones -->
+          <div class="step-content hidden" data-step="16">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Términos y Condiciones</h2>
+              <p class="text-slate-400 text-sm">Lea y acepte los términos</p>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-slate-700 rounded-lg p-4 h-64 overflow-y-auto text-sm text-slate-300">
+                <h3 class="font-semibold text-white mb-2">TÉRMINOS Y CONDICIONES DE USO</h3>
+                <p class="mb-3">Al firmar este formulario, usted acepta y autoriza lo siguiente:</p>
+                <ul class="list-disc list-inside space-y-2">
+                  <li>La participación de su hijo/a en todas las actividades académicas regulares del campus.</li>
+                  <li>Las autorizaciones específicas marcadas en este formulario para actividades extracurriculares.
+                  </li>
+                  <li>El uso de la información proporcionada únicamente para fines educativos y de contacto.</li>
+                  <li>La comunicación entre el personal educativo y los padres/tutores según sea necesario.</li>
+                  <li>El cumplimiento de las normas y reglamentos institucionales vigentes.</li>
+                  <li>La responsabilidad compartida en la educación y seguridad del estudiante.</li>
+                </ul>
+                <p class="mt-4">Este documento tiene validez para el año escolar en curso y debe renovarse anualmente.
+                </p>
+              </div>
+
+              <div class="flex items-center space-x-3">
+                <input type="checkbox" id="accept_terms" name="accept_terms" required
+                  class="w-4 h-4 text-primary-500 bg-slate-700 border-slate-600 rounded focus:ring-2 focus:ring-primary-500" />
+                <label for="accept_terms" class="text-sm text-slate-300">
+                  Acepto los términos y condiciones <span class="text-red-400">*</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 19: Política de Privacidad -->
+          <div class="step-content hidden" data-step="17">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Política de Privacidad</h2>
+              <p class="text-slate-400 text-sm">Protección de datos personales</p>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-slate-700 rounded-lg p-4 h-64 overflow-y-auto text-sm text-slate-300">
+                <h3 class="font-semibold text-white mb-2">POLÍTICA DE PRIVACIDAD Y PROTECCIÓN DE DATOS</h3>
+                <p class="mb-3">Su privacidad es importante para nosotros. Esta política explica cómo recolectamos,
+                  usamos y protegemos su información:</p>
+
+                <h4 class="font-medium text-white mt-4 mb-2">Recolección de Datos:</h4>
+                <ul class="list-disc list-inside space-y-1 ml-4">
+                  <li>Datos personales del estudiante y padre/tutor</li>
+                  <li>Información de contacto y emergencia</li>
+                  <li>Información médica relevante para la seguridad</li>
+                </ul>
+
+                <h4 class="font-medium text-white mt-4 mb-2">Uso de la Información:</h4>
+                <ul class="list-disc list-inside space-y-1 ml-4">
+                  <li>Comunicación educativa y administrativa</li>
+                  <li>Emergencias y situaciones de salud</li>
+                  <li>Cumplimiento de regulaciones educativas</li>
+                </ul>
+
+                <h4 class="font-medium text-white mt-4 mb-2">Protección:</h4>
+                <ul class="list-disc list-inside space-y-1 ml-4">
+                  <li>Acceso restringido al personal autorizado</li>
+                  <li>Medidas de seguridad física y digital</li>
+                  <li>No compartimos datos con terceros sin autorización</li>
+                </ul>
+              </div>
+
+              <div class="flex items-center space-x-3">
+                <input type="checkbox" id="accept_privacy" name="accept_privacy" required
+                  class="w-4 h-4 text-primary-500 bg-slate-700 border-slate-600 rounded focus:ring-2 focus:ring-primary-500" />
+                <label for="accept_privacy" class="text-sm text-slate-300">
+                  Acepto la política de privacidad <span class="text-red-400">*</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 20: Resumen -->
+          <div class="step-content hidden" data-step="18">
+            <div class="text-center mb-6">
+              <h2 class="text-xl font-semibold text-white mb-2">Resumen de Respuestas</h2>
+              <p class="text-slate-400 text-sm">Revise toda la información antes de enviar</p>
+            </div>
+
+            <div class="space-y-4">
+              <div id="summaryContent" class="bg-slate-700 rounded-lg p-4 space-y-3 text-sm">
+                <!-- Summary will be populated by JavaScript -->
+              </div>
+
+              <div class="text-center">
+                <p class="text-slate-400 text-sm mb-4">
+                  Al enviar este formulario, confirma que toda la información es correcta y autoriza las actividades
+                  seleccionadas.
+                </p>
+                <div class="flex items-center justify-center space-x-2 text-success-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="font-medium">Listo para enviar</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="flex justify-between items-center mt-8 pt-6 border-t border-slate-700">
+            <button id="prevBtn" type="button"
+              class="flex items-center px-6 py-3 rounded-lg font-medium transition-all duration-200 text-slate-500 cursor-not-allowed"
+              disabled>
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              ATRÁS
+            </button>
+
+            <button id="nextBtn" type="button"
+              class="flex items-center px-8 py-3 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 bg-blue-500 text-slate-400 cursor-not-allowed"
+              disabled>
+              SIGUIENTE
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+    </div>
+      </div>
+    </div>
+  </section>
+  
+</div>
+<Footer>
+
+<script>
+  class FormManager {
+    private currentStep: number = 1;
+    private totalSteps: number = 18;
+    private formData: Record<string, any> = {};
+
+    constructor() {
+      this.init();
+    }
+
+    private init() {
+      this.loadSavedData();
+      this.bindEvents();
+      this.updateUI();
+    }
+
+    // private bindEvents() {
+    //   // Navigation buttons
+    //   document.getElementById('nextBtn')?.addEventListener('click', () => this.nextStep());
+    //   document.getElementById('prevBtn')?.addEventListener('click', () => this.prevStep());
+
+    //   // Form field changes
+    //   document.querySelectorAll('input, select').forEach(field => {
+    //     field.addEventListener('change', () => this.saveCurrentStep());
+    //     field.addEventListener('input', () => this.saveCurrentStep());
+    //   });
+    // }
+
+    private bindEvents() {
+      // Navigation buttons
+      document.getElementById('nextBtn')?.addEventListener('click', () => this.nextStep());
+      document.getElementById('prevBtn')?.addEventListener('click', () => this.prevStep());
+
+      // Escuchamos el evento personalizado del canvas de la firma
+      document.getElementById('campusForm')?.addEventListener('signatureupdated', () => this.saveCurrentStep());
+
+      // Form field changes
+      document.querySelectorAll('input, select').forEach(field => {
+        field.addEventListener('change', () => this.saveCurrentStep());
+        field.addEventListener('input', () => this.saveCurrentStep());
+      });
+    }
+
+    private updateUI() {
+      // Update progress
+      this.updateProgress();
+
+      // Show current step
+      document.querySelectorAll('.step-content').forEach((step, index) => {
+        if (index + 1 === this.currentStep) {
+          step.classList.remove('hidden');
+        } else {
+          step.classList.add('hidden');
+        }
+      });
+
+      // Update navigation
+      this.updateNavigation();
+
+      // Special handling for summary step
+      if (this.currentStep === this.totalSteps) {
+        this.generateSummary();
+      }
+    }
+
+    private updateProgress() {
+      const indicators = document.querySelectorAll('.w-3.h-3.rounded-full');
+      indicators.forEach((indicator, index) => {
+        const step = index + 1;
+        indicator.className = `w-3 h-3 rounded-full transition-all duration-300 ${step < this.currentStep
+            ? 'bg-success-500 scale-110'
+            : step === this.currentStep
+              ? 'bg-primary-500 scale-125 ring-4 ring-primary-500/30'
+              : 'bg-slate-600 hover:bg-slate-500'
+          }`;
+      });
+
+      // Update step counter
+      const counter = document.querySelector('.text-center.text-slate-300.text-sm.font-medium.mb-6');
+      if (counter) {
+        counter.textContent = `${this.currentStep} de ${this.totalSteps}`;
+      }
+    }
+
+    private updateNavigation() {
+      const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement;
+      const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement;
+
+      // Previous button
+      if (prevBtn) {
+        prevBtn.disabled = this.currentStep === 1;
+        prevBtn.className = `flex items-center px-6 py-3 rounded-lg font-medium transition-all duration-200 ${this.currentStep === 1
+            ? 'text-slate-500 cursor-not-allowed'
+            : 'bg-blue-500 text-slate-300 hover:text-white hover:bg-slate-700'
+          }`;
+      }
+
+      // Next button
+      if (nextBtn) {
+        const canProceed = this.canProceedToNext();
+        nextBtn.disabled = !canProceed;
+
+        nextBtn.className = `flex items-center px-8 py-3 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 ${canProceed
+            ? this.currentStep === this.totalSteps
+              ? 'bg-success-500 hover:bg-success-600 text-white shadow-lg'
+              : 'bg-blue-500 hover:bg-primary-600 text-white shadow-lg'
+            : 'bg-slate-600 text-slate-400 cursor-not-allowed'
+          }`;
+
+        // Update button text
+        const buttonText = this.currentStep === this.totalSteps ? 'ENVIAR FORMULARIO' : 'SIGUIENTE';
+        nextBtn.innerHTML = buttonText + (this.currentStep !== this.totalSteps ?
+          '<svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>' : '');
+      }
+    }
+
+    private canProceedToNext(): boolean {
+      const currentStepElement = document.querySelector(`[data-step="${this.currentStep}"]`);
+      if (!currentStepElement) return false;
+
+      const requiredFields = currentStepElement.querySelectorAll('[required]');
+
+      for (const field of requiredFields) {
+        const input = field as HTMLInputElement;
+        if (input.type === 'checkbox') {
+          if (!input.checked) return false;
+        } else {
+          if (!input.value.trim()) return false;
+        }
+      }
+
+      // Special validation for signature step
+      if (this.currentStep === 15) {
+        return (window as any).hasSignature?.() || false;
+      }
+
+      return true;
+    }
+
+    private nextStep() {
+      if (this.currentStep < this.totalSteps && this.canProceedToNext()) {
+        this.saveCurrentStep();
+
+        if (this.currentStep === this.totalSteps) {
+          this.submitForm();
+          return;
+        }
+
+        this.currentStep++;
+        this.updateUI();
+        this.saveProgress();
+      }
+    }
+
+    private prevStep() {
+      if (this.currentStep > 1) {
+        this.currentStep--;
+        this.updateUI();
+        this.saveProgress();
+      }
+    }
+
+    private saveCurrentStep() {
+      const currentStepElement = document.querySelector(`[data-step="${this.currentStep}"]`);
+      if (!currentStepElement) return;
+
+      const fields = currentStepElement.querySelectorAll('input, select');
+      fields.forEach(field => {
+        const input = field as HTMLInputElement;
+        if (input.type === 'checkbox') {
+          this.formData[input.name] = input.checked;
+        } else {
+          this.formData[input.name] = input.value;
+        }
+      });
+
+      // Save signature if on signature step
+      // if (this.currentStep === 14) {
+      if (this.currentStep === this.totalSteps - 2 ) {
+        this.formData['signature'] = (window as any).getSignatureData?.() || '';
+      }
+
+      localStorage.setItem('campusFormData', JSON.stringify(this.formData));
+      this.updateNavigation();
+    }
+
+    private loadSavedData() {
+      const saved = localStorage.getItem('campusFormData');
+      if (saved) {
+        this.formData = JSON.parse(saved);
+
+        // Populate form fields
+        Object.keys(this.formData).forEach(key => {
+          const field = document.querySelector(`[name="${key}"]`) as HTMLInputElement;
+          if (field) {
+            if (field.type === 'checkbox') {
+              field.checked = this.formData[key];
+            } else {
+              field.value = this.formData[key];
+            }
+          }
+        });
+      }
+
+      // Load saved progress
+      const savedStep = localStorage.getItem('campusFormStep');
+      if (savedStep) {
+        this.currentStep = parseInt(savedStep);
+      }
+    }
+
+    private saveProgress() {
+      localStorage.setItem('campusFormStep', this.currentStep.toString());
+    }
+
+    private generateSummary() {
+      const summaryContent = document.getElementById('summaryContent');
+      if (!summaryContent) return;
+
+      const fieldLabels: Record<string, string> = {
+        student_name: 'Nombre del estudiante',
+        student_birthdate: 'Fecha de nacimiento',
+        student_grade: 'Grado escolar',
+        // parent_name: 'Nombre del padre/tutor',
+        // relationship: 'Relación',
+        // parent_phone: 'Teléfono',
+        parent_email: 'Correo electrónico',
+        address: 'Dirección',
+        field_trips: 'Permisos de salidas',
+        sports: 'Actividades deportivas',
+        image_use: 'Uso de imagen',
+        medication: 'Administración de medicamentos',
+        allergies: 'Alergias/Condiciones médicas',
+        emergency_contact: 'Contacto de emergencia',
+        emergency_phone: 'Teléfono de emergencia',
+        transportation: 'Transporte',
+        accept_terms: 'Términos y condiciones',
+        accept_privacy: 'Política de privacidad'
+      };
+
+      let summaryHTML = '';
+      Object.keys(this.formData).forEach(key => {
+        if (key !== 'signature' && this.formData[key] && fieldLabels[key]) {
+          const value = this.formData[key] === true ? 'Sí' : this.formData[key] === false ? 'No' : this.formData[key];
+          summaryHTML += `
+            <div class="flex justify-between py-2 border-b border-slate-600">
+              <span class="text-slate-300">${fieldLabels[key]}:</span>
+              <span class="text-white font-medium">${value}</span>
+            </div>
+          `;
+        }
+      });
+
+      if (this.formData.signature) {
+        summaryHTML += `
+          <div class="pt-4">
+            <span class="text-slate-300">Firma digital:</span>
+            <div class="mt-2 p-2 bg-white rounded">
+              <img src="${this.formData.signature}" alt="Firma" class="max-w-full h-auto" />
+            </div>
+          </div>
+        `;
+      }
+
+      summaryContent.innerHTML = summaryHTML;
+    }
+
+    private async submitForm() {
+      const submitBtn = document.getElementById('nextBtn') as HTMLButtonElement;
+
+      // Show loading state
+      submitBtn.innerHTML = 'Enviando...';
+      submitBtn.disabled = true;
+
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Clear saved data
+        localStorage.removeItem('campusFormData');
+        localStorage.removeItem('campusFormStep');
+
+        // Show success message
+        alert('¡Formulario enviado exitosamente! Recibirá una confirmación por correo electrónico.');
+
+        // Reset form
+        this.currentStep = 1;
+        this.formData = {};
+        document.querySelector('form')?.reset();
+        this.updateUI();
+
+      } catch (error) {
+        alert('Error al enviar el formulario. Por favor, inténtelo nuevamente.');
+        submitBtn.innerHTML = 'ENVIAR FORMULARIO';
+        submitBtn.disabled = false;
+      }
+    }
+  }
+
+  // Initialize form manager when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new FormManager();
+  });
+</script>

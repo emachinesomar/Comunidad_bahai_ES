@@ -1,0 +1,124 @@
+---
+---
+
+<div class="space-y-4">
+  <label class="block text-sm font-medium text-slate-200">
+    Firma Digital <span class="text-red-400 ml-1">*</span>
+  </label>
+
+  <div class="bg-white rounded-lg p-4">
+    <canvas
+      id="signatureCanvas"
+      width="400"
+      height="200"
+      class="border-2 border-dashed border-slate-300 rounded cursor-crosshair w-full"
+      style="max-width: 100%; height: auto;"
+    ></canvas>
+  </div>
+  
+  <div class="flex justify-between items-center">
+    <button
+      type="button"
+      id="clearSignature"
+      class="px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors duration-200 bg-blue-500"
+    >
+      Limpiar Firma
+    </button>
+    <p class="text-xs text-slate-400">Dibuje su firma en el área blanca</p>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('signatureCanvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d');
+  const clearBtn = document.getElementById('clearSignature');
+  
+  let isDrawing = false;
+  let hasSignature = false;
+
+  // Set canvas background to white
+  if (ctx) {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+
+  function startDrawing(e: MouseEvent | TouchEvent) {
+    isDrawing = true;
+    const rect = canvas.getBoundingClientRect();
+    const x = ('touches' in e ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = ('touches' in e ? e.touches[0].clientY : e.clientY) - rect.top;
+    
+    if (ctx) {
+      ctx.beginPath();
+      ctx.moveTo(x * (canvas.width / rect.width), y * (canvas.height / rect.height));
+    }
+  }
+
+  function draw(e: MouseEvent | TouchEvent) {
+    if (!isDrawing || !ctx) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    const x = ('touches' in e ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = ('touches' in e ? e.touches[0].clientY : e.clientY) - rect.top;
+    
+    ctx.lineTo(x * (canvas.width / rect.width), y * (canvas.height / rect.height));
+    ctx.stroke();
+    hasSignature = true;
+  }
+
+  // function stopDrawing() {
+  //   isDrawing = false;
+  // }
+
+  function stopDrawing() {
+  if (!isDrawing) return;
+  isDrawing = false;
+  // Dispatch an event to notify the parent form
+  const event = new CustomEvent('signatureupdated', {
+    bubbles: true,
+    composed: true,
+  });
+  canvas.dispatchEvent(event);
+}
+
+  // Mouse events
+  canvas.addEventListener('mousedown', startDrawing);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', stopDrawing);
+  canvas.addEventListener('mouseout', stopDrawing);
+
+  // Touch events
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    startDrawing(e);
+  });
+  canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    draw(e);
+  });
+  canvas.addEventListener('touchend', stopDrawing);
+
+  // Clear button
+  clearBtn?.addEventListener('click', () => {
+    if (ctx) {
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      hasSignature = false;
+    }
+    // Dispatch an event to notify the parent form
+    const event = new CustomEvent('signatureupdated', {
+      bubbles: true,
+      composed: true,
+    });
+    canvas.dispatchEvent(event);
+  });
+
+  // Export function for validation
+  (window as any).hasSignature = () => hasSignature;
+  (window as any).getSignatureData = () => canvas.toDataURL();
+</script>

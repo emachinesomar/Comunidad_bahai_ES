@@ -4,6 +4,7 @@ const programs = [
     title: "Clases de Niños",
     description: "Desarrollo de cualidades espirituales y valores morales en niños de 5 a 11 años.",
     image: "/ninos.jpg?height=300&width=400",
+    info: "/ninos",
     features: [
       "Actividades lúdicas y artísticas",
       "Desarrollo de virtudes y valores",
@@ -15,6 +16,7 @@ const programs = [
     title: "Grupos Prejuveniles",
     description: "Empoderamiento de prejóvenes de 12 a 14 años para ser agentes de cambio positivo.",
     image: "/prejovenes.jpg?height=300&width=400",
+    info: "/prejovenes",
     features: [
       "Desarrollo de capacidades de servicio",
       "Fortalecimiento del carácter",
@@ -26,6 +28,7 @@ const programs = [
     title: "Círculos de Estudio",
     description: "Espacios de aprendizaje colaborativo para jóvenes y adultos.",
     image: "/jovenes.jpg?height=300&width=400",
+    info: "/jovenes",
     features: [
       "Estudio de conceptos sobre desarrollo comunitario",
       "Adquisición de habilidades prácticas",
@@ -76,7 +79,9 @@ const programs = [
                 </li>
               ))}
             </ul>
-            <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-full transition-colors duration-300">
+            
+            <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-full transition-colors duration-300" 
+              onclick={`window.location.href='${program.info}'`} >  
               Más Información
             </button>
           </div>
@@ -84,11 +89,11 @@ const programs = [
       ))}
     </div>
 
-    <div class="text-center mt-16" data-aos="fade-up">
+    <!-- <div class="text-center mt-16" data-aos="fade-up">
       <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105">
         Ver Todos los Programas
       </button>
-    </div>
+    </div> -->
   </div>
 </section>
 
