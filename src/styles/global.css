@@ -19,6 +19,11 @@ body {
   scroll-behavior: smooth;
 }
 
+h2, h3 {
+  font-family: 'Plumpfull';
+  font-size: 2.5rem;
+}
+
 @font-face {
   font-family: 'Plumpfull';
   src: url('/fonts/Plumpfull.woff2') format('woff2');

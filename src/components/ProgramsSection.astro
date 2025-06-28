@@ -8,7 +8,7 @@ const programs = [
     features: [
       "Actividades lúdicas y artísticas",
       "Desarrollo de virtudes y valores",
-      "Servicio a la comunidad",
+      "Proyectos de servicio comunitario",
       "Fortalecimiento de la identidad positiva",
     ],
   },
@@ -19,16 +19,28 @@ const programs = [
     info: "/prejovenes",
     features: [
       "Desarrollo de capacidades de servicio",
-      "Fortalecimiento del carácter",
-      "Análisis crítico de la sociedad",
+      "Fortalecimiento del carácter y la madurez emocional",
+      "Análisis crítico de la sociedad y sus valores",
       "Proyectos de servicio comunitario",
     ],
   },
   {
-    title: "Círculos de Estudio",
-    description: "Espacios de aprendizaje colaborativo para jóvenes y adultos.",
+    title: "Jóvenes Líderes Comunitarios",
+    description: "Espacios de reflexión y acción para jóvenes.",
     image: "/jovenes.jpg?height=300&width=400",
     info: "/jovenes",
+    features: [
+      "Espacios de reflexión para transformar el entorno.",
+      "Desarrollo de proyectos de acción social",
+      "Participación activa en proyectos con impacto local",
+      "Desarrollo de capacidades de servicio",
+    ],
+  },
+  {
+    title: "Adultos, Capacitación y Servicio",
+    description: "Espacios de aprendizaje para jóvenes y adultos.",
+    image: "/adultos.jpg?height=300&width=400",
+    info: "/adultos",
     features: [
       "Estudio de conceptos sobre desarrollo comunitario",
       "Adquisición de habilidades prácticas",
@@ -52,7 +64,7 @@ const programs = [
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {programs.map((program, index) => (
         <div
           class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
