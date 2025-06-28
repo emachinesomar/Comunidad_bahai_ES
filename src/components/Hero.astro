@@ -1,76 +1,120 @@
 ---
-// const heroImages = ['/public/hero1.jpg', '/public/hero2.jpg', '/public/hero3.jpg'];
 const heroImages = ['/hero1.avif', '/hero2.avif', '/hero3.avif'];
 ---
 
 <section id="inicio" class="relative h-screen w-full overflow-hidden">
-  <!-- Background Carousel -->
+  <!-- Fondo con imágenes en carrusel -->
   <div class="absolute inset-0 z-0">
     <div class="relative w-full h-full" id="heroCarousel">
-      <img
-        src={heroImages[0]}
-        alt="Community Group"
-        class="w-full h-full object-cover absolute transition-opacity duration-1000" />
-      {heroImages.slice(1).map((image, index) => (
-        <img src={image} alt={`Community Group ${index + 2}`} class="w-full h-full object-cover absolute transition-opacity duration-1000 opacity-0" />
+      {heroImages.map((image, index) => (
+        <img
+          src={image}
+          alt={`Fondo ${index + 1}`}
+          class={`img-hero w-full h-full object-cover absolute ${
+            index === 0 ? 'visible animate-zoom' : 'hidden'
+          }`}
+        />
       ))}
     </div>
-
     <div class="absolute inset-0 bg-black bg-opacity-30"></div>
   </div>
 
-  <!-- Content -->
+  <!-- Contenido -->
   <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
     <div class="mt-20 md:mt-0" data-aos="fade-up" data-aos-delay="200">
-      <img
-        src="/LOGO.png"
-        alt="Instituto Bahá'í Logo"
-        width="120"
-        height="120"
-        class="mx-auto mb-6"
-      />
-      <h1 class="text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
+      <div class="relative mx-auto mb-6 w-[120px] h-[120px]">
+        <!-- Sombra detrás de la imagen -->
+        <div class="absolute inset-0 bg-black bg-opacity-30 rounded-2xl"></div>
+        <!-- Imagen con transparencia -->
+        <img
+          src="/logo.png"
+          alt="Instituto Bahá'í logo"
+          width="180"
+          height="180"
+          class="relative z-10 p-1"
+        />
+      </div>
+      <h1 class="font-plumpfull text-white text-3xl md:text-4xl lg:text-5xl mb-2 text-shadow">
         INSTITUTO BAHÁ'Í
       </h1>
-      <p class="text-white text-lg md:text-xl mb-2">
+      <p class="font-plumpfull text-white text-lg md:text-xl mb-2 text-shadow">
         CAPACITACIÓN Y DESARROLLO COMUNITARIO
       </p>
-      <h2 class="text-white text-2xl md:text-3xl font-semibold mb-8">
-        ISLAS CANARIAS
+      <h2 class="font-plumpfull text-white text-2xl md:text-3xl font-semibold mb-8 text-shadow">
+        ESPAÑA
       </h2>
     </div>
 
     <div class="mt-8" data-aos="fade-up" data-aos-delay="400">
       <div class="text-center">
-        <h2 class="text-4xl md:text-5xl font-bold">
-          <span class="text-green-500">CONSTRUYENDO</span>
+        <h2 class="font-plumpfull text-4xl md:text-5xl font-bold text-shadow">
+          <span class="text-red-500">CONSTRUYENDO</span>
           <br />
           <span class="text-yellow-500">COMUNIDAD</span>
           <br />
-          <span class="text-blue-400 font-script text-3xl md:text-4xl">en familia</span>
+          <span class="text-blue-400 text-3xl md:text-4xl">en familia</span>
         </h2>
       </div>
     </div>
 
     <div class="mt-12" data-aos="fade-up" data-aos-delay="600">
-      <button class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105">
-        Conoce Nuestros Programas
+      <button class="bg-blue-500 px-6 py-2 rounded-full transition-colors duration-300 hover:bg-blue-600 transition-transform hover:scale-105">
+        <a href="#contacto" class="text-white font-medium transition-colors duration-300">
+          CONOCE NUESTROS PROGRAMAS
+        </a>
       </button>
     </div>
   </div>
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const images = document.querySelectorAll('#heroCarousel img');
+  document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('#heroCarousel .img-hero');
     let currentIndex = 0;
 
-    function showNextImage() {
-      images[currentIndex].classList.add('opacity-0');
-      currentIndex = (currentIndex + 1) % images.length;
-      images[currentIndex].classList.remove('opacity-0');
-    }
+    setInterval(() => {
+      // Oculta imagen actual
+      images[currentIndex].classList.remove('visible', 'animate-zoom');
+      images[currentIndex].classList.add('hidden');
 
-    setInterval(showNextImage, 5000); // Change image every 5 seconds
+      // Muestra siguiente imagen y aplica animación
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.remove('hidden');
+      images[currentIndex].classList.add('visible', 'animate-zoom');
+    }, 5000);
   });
 </script>
+
+<style>
+  @keyframes zoomIn {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
+
+  .img-hero {
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 1s ease-in-out;
+  }
+
+  .img-hero.visible {
+    opacity: 1;
+    z-index: 10;
+  }
+
+  .img-hero.hidden {
+    opacity: 0;
+    z-index: 0;
+  }
+
+  .animate-zoom {
+    animation: zoomIn 5s ease-in-out forwards;
+  }
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }
+</style>
