@@ -1,7 +1,10 @@
 ---
 ---
-
-<header id="header-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+  
+<header
+  id="header-nav"
+  class="fixed w-full py-4 transition-all duration-500 ease-in-out bg-white backdrop-blur-sm z-50 md:opacity-0 md:-translate-y-10 md:pointer-events-none"
+>
   <div class="container mx-auto px-4 flex justify-between items-center">
     <div class="flex items-center">
       <a href="/">
@@ -14,9 +17,19 @@
         />
       </a>
       <div class="ml-4 hidden md:block">
-        <h1 class="text-xl font-bold text-gray-800">INSTITUTO BAHÁ'Í</h1>
-        <p class="text-sm text-gray-600">CAPACITACIÓN Y DESARROLLO COMUNITARIO</p>
-        <p class="text-lg font-semibold text-gray-700">ISLAS CANARIAS</p>
+        <h1
+          class="font-plumpfull text-xl font-bold text-gray-800 transition-all duration-300"
+        >
+          INSTITUTO BAHÁ'Í
+        </h1>
+        <p class="text-sm text-gray-600 transition-all duration-300">
+          CAPACITACIÓN Y DESARROLLO COMUNITARIO
+        </p>
+        <p
+          class="text-lg font-semibold text-gray-700 transition-all duration-300"
+        >
+          ESPAÑA
+        </p>
       </div>
     </div>
 
@@ -78,23 +91,72 @@
 </header>
 
 <script>
-  // Cambiar estilo del header al hacer scroll
   const header = document.getElementById('header-nav');
-  const handleScroll = () => {
-    if (window.scrollY > 50) {
-      header.classList.add('bg-white', 'shadow-md', 'py-2');
-      header.classList.remove('bg-transparent', 'py-4');
+  const isDesktop = () => window.innerWidth >= 768;
+
+  const updateHeaderVisibility = () => {
+    const scrollY = window.scrollY;
+
+    if (!isDesktop()) return; // En móviles no hacemos nada
+
+    if (scrollY > 50) {
+      header.classList.remove(
+        'md:opacity-0',
+        'md:-translate-y-10',
+        'md:pointer-events-none'
+      );
+      header.classList.add('md:opacity-100', 'md:translate-y-0');
     } else {
-      header.classList.remove('bg-white', 'shadow-md', 'py-2');
-      header.classList.add('bg-transparent', 'py-4');
+      header.classList.remove('md:opacity-100', 'md:translate-y-0');
+      header.classList.add(
+        'md:opacity-0',
+        'md:-translate-y-10',
+        'md:pointer-events-none'
+      );
+    }
+
+    // Ajustes de tamaño y sombra (solo en escritorio)
+    if (scrollY > 50) {
+      header.classList.remove('py-4');
+      header.classList.add('py-2', 'shadow-lg');
+    } else {
+      header.classList.remove('py-2', 'shadow-lg');
+      header.classList.add('py-4');
+    }
+
+    // Texto reducido solo en escritorio
+    if (isDesktop()) {
+      const title = header.querySelector('h1');
+      const subtitle = header.querySelector('p:first-of-type');
+      const location = header.querySelector('p:last-of-type');
+
+      if (scrollY > 50) {
+        if (title) title.classList.add('text-lg');
+        if (subtitle) subtitle.classList.add('text-xs');
+        if (location) location.classList.add('text-base');
+      } else {
+        if (title) title.classList.remove('text-lg');
+        if (subtitle) subtitle.classList.remove('text-xs');
+        if (location) location.classList.remove('text-base');
+      }
     }
   };
 
-  // Inicializar el estado del header
-  handleScroll();
-  
-  // Agregar el evento de scroll
-  window.addEventListener('scroll', handleScroll);
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateHeaderVisibility();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    // Reiniciar clases si cambia el tamaño de ventana entre móvil/escritorio
+    updateHeaderVisibility();
+  });
 
   // Menú móvil
   const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -103,12 +165,24 @@
   const closeIcon = document.querySelector('.close-icon');
 
   mobileMenuButton.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-    menuIcon.classList.toggle('hidden');
-    closeIcon.classList.toggle('hidden');
+    const isHidden = mobileMenu.classList.contains('opacity-0');
+    if (isHidden) {
+      mobileMenu.classList.remove(
+        'opacity-0',
+        'invisible',
+        'translate-y-[-10px]'
+      );
+      mobileMenu.classList.add('opacity-100', 'visible', 'translate-y-0');
+      menuIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+    } else {
+      mobileMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+      mobileMenu.classList.add('opacity-0', 'invisible', 'translate-y-[-10px]');
+      menuIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+    }
   });
 
-  // Cerrar menú móvil al hacer clic en un enlace
   const mobileLinks = mobileMenu.querySelectorAll('a');
   mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
