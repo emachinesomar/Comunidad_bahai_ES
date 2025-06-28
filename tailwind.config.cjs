@@ -19,7 +19,7 @@ module.exports = {
           dark: '#3D8B40',
           light: '#6FBF73',
         },
-         success: {
+        success: {
           500: '#10b981',
           600: '#059669',
         }
@@ -30,7 +30,7 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        script: ['Script', 'cursive'],
+        script: ['Script', 'cursive','Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         float: 'float 3s ease-in-out infinite',

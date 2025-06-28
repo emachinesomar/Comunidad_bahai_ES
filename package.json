@@ -9,9 +9,9 @@
 		"lint": "astro lint"
 	},
 	"dependencies": {
-		"@astrojs/tailwind": "latest",
 		"aos": "latest",
 		"astro": "latest",
+		"@astrojs/tailwind": "^5.1.2",
 		"autoprefixer": "^10.4.20",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
