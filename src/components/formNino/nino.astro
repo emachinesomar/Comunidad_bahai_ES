@@ -1,6 +1,7 @@
 ---
 import FormField from './FormField.astro';
 import SignatureCanvas from './SignatureCanvas.astro';
+import ProgressIndicator from './ProgressIndicator.astro';
 import Footer from '../../components/Footer.astro';
 const totalSteps = 18; // Total number of steps in the form
 ---
@@ -45,12 +46,15 @@ const totalSteps = 18; // Total number of steps in the form
         </div>
 
         <!-- Progress Indicator -->
-          <div class="flex justify-center items-center space-x-3 mb-8">
-        {Array.from({ length: totalSteps }).map((_, i) => (
-        <div class={`progress-dot w-3 h-3 rounded-full`} data-step-indicator={i + 1}></div>
-        ))}
-      </div>
+      <!-- <div class="flex justify-center items-center space-x-3 mb-8">
+            {Array.from({ length: totalSteps }).map((_, i) => (
+            <div class={`progress-dot w-3 h-3 rounded-full`} data-step-indicator={i + 1}></div>
+            ))}
+      </div> -->
 
+        <div class="flex justify-center items-center space-x-3 mb-8">
+          <ProgressIndicator currentStep={1} totalSteps={totalSteps} />
+        </div>
         <div class="text-center text-slate-300 text-sm font-medium mb-6">
           1 de 20
         </div>
@@ -638,13 +642,13 @@ const totalSteps = 18; // Total number of steps in the form
       const summaryContent = document.getElementById('summaryContent');
       if (!summaryContent) return;
 
+        // parent_name: 'Nombre del padre/tutor',
+        // relationship: 'Relación',
+        // parent_phone: 'Teléfono',
       const fieldLabels: Record<string, string> = {
         student_name: 'Nombre del estudiante',
         student_birthdate: 'Fecha de nacimiento',
         student_grade: 'Grado escolar',
-        // parent_name: 'Nombre del padre/tutor',
-        // relationship: 'Relación',
-        // parent_phone: 'Teléfono',
         parent_email: 'Correo electrónico',
         address: 'Dirección',
         field_trips: 'Permisos de salidas',

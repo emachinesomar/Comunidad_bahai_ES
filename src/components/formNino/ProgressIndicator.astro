@@ -1,0 +1,27 @@
+---
+interface Props {
+  currentStep: number;
+  totalSteps: number;
+}
+
+const { currentStep, totalSteps } = Astro.props;
+const steps = Array.from({ length: totalSteps }, (_, i) => i + 1);
+---
+
+<div class="flex justify-center items-center space-x-3 mb-8">
+  {steps.map((step) => (
+    <div 
+      class={`w-3 h-3 rounded-full transition-all duration-300 ${
+        step < currentStep 
+          ? 'bg-success-500 scale-110' 
+          : step === currentStep 
+            ? 'bg-primary-500 scale-125 ring-4 ring-primary-500/30' 
+            : 'bg-slate-600 hover:bg-slate-500'
+      }`}
+    />
+  ))}
+</div>
+
+<div class="text-center text-slate-300 text-sm font-medium mb-6">
+  {currentStep} de {totalSteps}
+</div>
