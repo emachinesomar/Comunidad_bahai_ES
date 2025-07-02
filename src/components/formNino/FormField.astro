@@ -13,8 +13,8 @@ const {
   label,
   name,
   type = 'text',
-  required = false, 
-  options = [], 
+  required = false,
+  options = [],
   placeholder = '',
   value = ''
 } = Astro.props;
@@ -25,9 +25,9 @@ const {
     {label}
     {required && <span class="text-red-400 ml-1">*</span>}
   </label>
-  
+
   {type === 'select' ? (
-    <select 
+    <select
       id={name}
       name={name}
       required={required}
@@ -39,7 +39,7 @@ const {
       ))}
     </select>
   ) : (
-    <input 
+    <input
       type={type}
       id={name}
       name={name}

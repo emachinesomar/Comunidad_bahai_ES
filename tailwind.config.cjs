@@ -2,15 +2,16 @@
 module.exports = {
   content: [
     './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-    '*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#0099ff',
-          dark: '#0077cc',
-          light: '#33adff',
+      primary: {
+          50: '#eff6ff',
+          500: '#2563eb',
+          600: '#1d4ed8',
+          700: '#1e40af',
+          900: '#1e3a8a',
         },
         secondary: {
           DEFAULT: '#FFA500',
@@ -33,7 +34,7 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        plumpfull: ['Plumpfull', 'sans-serif'],
+        plumpfull: ['Plumpfull', 'sans-serif','Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         float: 'float 3s ease-in-out infinite',
